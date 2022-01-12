@@ -4,7 +4,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
 <title>FREEDOM by NeuroModern</title>
-
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+	//  fxhash ='oodT1wJWMykLepCXXmDwQuZw5bowzS5pHs1MAji2TTqxLaB2FXZ';
+	  
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // true if preview mode active, false otherwise
+      // you can append preview=1 to the URL to simulate preview active
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      // call this method to trigger the preview
+      function fxpreview() {
+        console.log("fxhash: TRIGGER PREVIEW");
+      }
+      //---- /do not edit the following code
+    </script>
 	
 
 
@@ -36,75 +67,7 @@ opacity: 0.4;
 
 }		
 	
-#bird01
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird01.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
 
-#bird02
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird02.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
-
-#bird03
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird03.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
-
-#bird04
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird04.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
-
-#bird05
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird05.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
-
-#bird06
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird03.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
-
-#bird07
-{
-position: absolute;
-width: 10vw;
-height: 10vw;
-background-image:  url("bird01.png");
-background-repeat: no-repeat;
-background-size: cover;
-}
 
 #overlayPaper
 {
@@ -118,8 +81,21 @@ top:0;
 left:0;
 }
 	
+#overlayColor
+{
+position: absolute;
+width: 100vw;
+height: 100vh;
+background-color: #c91500;
+opacity: 0.3;
+top:0;
+left:0;
+}
+		
 	
-#rope01, #rope02,#rope03
+	
+	
+#rope01, #rope02, #rope03
 {
 position: absolute;
 width: 140vw;
@@ -140,19 +116,300 @@ left:0;
 
 <div id="sun"></div>
 
-<div id="bird01"></div>
-<div id="bird02"></div>
-<div id="bird03"></div>
-<div id="bird04"></div>
-<div id="bird05"></div>
-<div id="bird06"></div>
-<div id="bird07"></div>
-
 <div id="rope01"></div>	
 <div id="rope02"></div>	
 <div id="rope03"></div>	
 	
+<canvas id="birdTempCanvas" style="position: absolute; " width="350" height="350" ></canvas>	
+<canvas id="NeuroModernFreedomNFT" style="position: absolute; width:100vh; height:100vh;" width="1200" height="1200"></canvas>	
+	
+	
 <div id="overlayPaper"></div>	
+<div id="overlayColor"></div>		
+	
+	
+	
+	
+	
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function plus()
+{
+return Math.floor(Math.random()*6)-3;
+}
+
+
+function drawBird()
+{
+let canvas = document.getElementById('birdTempCanvas');
+let ctx = canvas.getContext('2d');
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+ctx.translate(175, 175);
+let deg=fxrand()*360;
+deg=Math.floor(Math.random()*360);
+
+ctx.rotate(deg*Math.PI/180);
+ctx.translate(-175, -175);
+
+// Reset transformation matrix to the identity matrix
+//
+
+{
+ctx.beginPath();      
+ctx.moveTo(plus()+59, plus()+160);   
+ctx.lineTo(plus()+49, plus()+170);  
+
+ctx.moveTo(plus()+63, plus()+160);   
+ctx.lineTo(plus()+53, plus()+172); 
+
+ctx.moveTo(plus()+72, plus()+158);   
+ctx.lineTo(plus()+58, plus()+174); 
+
+ctx.moveTo(plus()+79, plus()+157);   
+ctx.lineTo(plus()+62, plus()+174); 
+
+ctx.moveTo(plus()+86, plus()+156);   
+ctx.lineTo(plus()+67, plus()+177); 
+
+ctx.moveTo(plus()+91, plus()+156);   
+ctx.lineTo(plus()+74, plus()+178); 
+
+ctx.moveTo(plus()+96, plus()+157);   
+ctx.lineTo(plus()+81, plus()+179); 
+
+ctx.moveTo(plus()+102, plus()+153);   
+ctx.lineTo(plus()+89, plus()+183); 
+
+ctx.moveTo(plus()+106, plus()+155);   
+ctx.lineTo(plus()+95, plus()+183); 
+
+ctx.moveTo(plus()+111, plus()+155);   
+ctx.lineTo(plus()+100, plus()+186); 
+
+ctx.moveTo(plus()+115, plus()+152);   
+ctx.lineTo(plus()+103, plus()+188);
+
+ctx.moveTo(plus()+121, plus()+153);   
+ctx.lineTo(plus()+109, plus()+190);
+
+ctx.moveTo(plus()+126, plus()+153);   
+ctx.lineTo(plus()+114, plus()+187);
+
+ctx.moveTo(plus()+130, plus()+152);   
+ctx.lineTo(plus()+117, plus()+190);
+
+ctx.moveTo(plus()+134, plus()+155);   
+ctx.lineTo(plus()+123, plus()+189);
+
+ctx.moveTo(plus()+139, plus()+155);   
+ctx.lineTo(plus()+127, plus()+190);
+
+ctx.moveTo(plus()+143, plus()+156);   
+ctx.lineTo(plus()+129, plus()+192);
+
+ctx.moveTo(plus()+148, plus()+155);   
+ctx.lineTo(plus()+135, plus()+191);
+
+ctx.moveTo(plus()+153, plus()+157);   
+ctx.lineTo(plus()+141, plus()+194);
+
+ctx.moveTo(plus()+155, plus()+155);   
+ctx.lineTo(plus()+147, plus()+192);
+
+ctx.moveTo(plus()+158, plus()+156);   
+ctx.lineTo(plus()+154, plus()+188);
+
+ctx.moveTo(plus()+162, plus()+154);   
+ctx.lineTo(plus()+160, plus()+190);
+
+ctx.moveTo(plus()+163, plus()+150);   
+ctx.lineTo(plus()+166, plus()+204);
+
+ctx.moveTo(plus()+170, plus()+196);   
+ctx.lineTo(plus()+163, plus()+234);
+
+ctx.moveTo(plus()+172, plus()+198);   
+ctx.lineTo(plus()+167, plus()+236);
+
+ctx.moveTo(plus()+176, plus()+197);   
+ctx.lineTo(plus()+172, plus()+237);
+
+ctx.moveTo(plus()+179, plus()+195);   
+ctx.lineTo(plus()+178, plus()+236);
+
+///middle
+
+ctx.moveTo(plus()+175, plus()+135);   
+ctx.lineTo(plus()+175, plus()+236);
+
+
+ctx.moveTo(plus()+173, plus()+133);   
+ctx.lineTo(plus()+170, plus()+145);
+
+ctx.moveTo(plus()+177, plus()+133);   
+ctx.lineTo(plus()+180, plus()+145);
+
+
+//
+ctx.moveTo(plus()+167, plus()+149);   
+ctx.lineTo(plus()+166, plus()+197);
+
+ctx.moveTo(plus()+170, plus()+149);   
+ctx.lineTo(plus()+170, plus()+197);
+
+ctx.moveTo(plus()+173, plus()+149);   
+ctx.lineTo(plus()+173, plus()+197);
+
+
+ctx.moveTo(350-plus()-167, plus()+149);   
+ctx.lineTo(350-plus()-166, plus()+197);
+
+ctx.moveTo(350-plus()-170, plus()+149);   
+ctx.lineTo(350-plus()-170, plus()+197);
+
+ctx.moveTo(350-plus()-173, plus()+149);   
+ctx.lineTo(350-plus()-173, plus()+197);
+
+}
+///
+{
+ctx.moveTo(350+plus()-59, plus()+160);   
+ctx.lineTo(350+plus()-49, plus()+170);  
+
+ctx.moveTo(350+plus()-63, plus()+160);   
+ctx.lineTo(350+plus()-53, plus()+172); 
+
+ctx.moveTo(350+plus()-72, plus()+158);   
+ctx.lineTo(350+plus()-58, plus()+174); 
+
+ctx.moveTo(350+plus()-79, plus()+157);   
+ctx.lineTo(350+plus()-62, plus()+174); 
+
+ctx.moveTo(350+plus()-86, plus()+156);   
+ctx.lineTo(350+plus()-67, plus()+177); 
+
+ctx.moveTo(350+plus()-91, plus()+156);   
+ctx.lineTo(350+plus()-74, plus()+178); 
+
+ctx.moveTo(350+plus()-96, plus()+157);   
+ctx.lineTo(350+plus()-81, plus()+179); 
+
+ctx.moveTo(350+plus()-102, plus()+153);   
+ctx.lineTo(350+plus()-89, plus()+183); 
+
+ctx.moveTo(350+plus()-106, plus()+155);   
+ctx.lineTo(350+plus()-95, plus()+183); 
+
+ctx.moveTo(350+plus()-111, plus()+155);   
+ctx.lineTo(350+plus()-100, plus()+186); 
+
+ctx.moveTo(350+plus()-115, plus()+152);   
+ctx.lineTo(350+plus()-103, plus()+188);
+
+ctx.moveTo(350+plus()-121, plus()+153);   
+ctx.lineTo(350+plus()-109, plus()+190);
+
+ctx.moveTo(350+plus()-126, plus()+153);   
+ctx.lineTo(350+plus()-114, plus()+187);
+
+ctx.moveTo(350+plus()-130, plus()+152);   
+ctx.lineTo(350+plus()-117, plus()+190);
+
+ctx.moveTo(350+plus()-134, plus()+155);   
+ctx.lineTo(350+plus()-123, plus()+189);
+
+ctx.moveTo(350+plus()-139, plus()+155);   
+ctx.lineTo(350+plus()-127, plus()+190);
+
+ctx.moveTo(350+plus()-143, plus()+156);   
+ctx.lineTo(350+plus()-129, plus()+192);
+
+ctx.moveTo(350+plus()-148, plus()+155);   
+ctx.lineTo(350+plus()-135, plus()+191);
+
+ctx.moveTo(350+plus()-153, plus()+157);   
+ctx.lineTo(350+plus()-141, plus()+194);
+
+ctx.moveTo(350+plus()-155, plus()+155);   
+ctx.lineTo(350+plus()-147, plus()+192);
+
+ctx.moveTo(350+plus()-158, plus()+156);   
+ctx.lineTo(350+plus()-154, plus()+188);
+
+ctx.moveTo(350+plus()-162, plus()+154);   
+ctx.lineTo(350+plus()-160, plus()+190);
+
+ctx.moveTo(350+plus()-163, plus()+150);   
+ctx.lineTo(350+plus()-166, plus()+204);
+
+ctx.moveTo(350+plus()-170, plus()+196);   
+ctx.lineTo(350+plus()-163, plus()+234);
+
+ctx.moveTo(350+plus()-172, plus()+198);   
+ctx.lineTo(350+plus()-167, plus()+236);
+
+ctx.moveTo(350+plus()-176, plus()+197);   
+ctx.lineTo(350+plus()-172, plus()+237);
+
+ctx.moveTo(350+plus()-179, plus()+195);   
+ctx.lineTo(350+plus()-178, plus()+236);
+}
+
+
+
+{
+ctx.moveTo(plus()+112, plus()+156);   
+ctx.lineTo(plus()+ 55, plus()+170);
+
+ctx.moveTo(plus()+160, plus()+158);   
+ctx.lineTo(plus()+105, plus()+163);
+
+ctx.moveTo(350-plus()-112, plus()+156);   
+ctx.lineTo(350-plus()- 55, plus()+170);
+
+ctx.moveTo(350-plus()-160, plus()+158);   
+ctx.lineTo(350-plus()-105, plus()+163);
+
+}
+
+
+
+
+
+
+
+ctx.lineWidth = 7-(fxrand()*3);
+ctx.stroke();
+
+
+var destCtx = document.getElementById('NeuroModernFreedomNFT').getContext('2d');
+let size=fxrand()*400;
+destCtx.drawImage(canvas, fxrand()*1200-350, fxrand()*1200-350, 450-size,450-size );
+
+
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+}
+
+
+
+</script>
 	
 	
 	
@@ -230,7 +487,7 @@ function resize()
 function generate()
 {
 //bgcolor
-bgColor=Math.round(Math.random() * 10);
+bgColor=Math.round(fxrand() * 10);
 if (bgColor==0) document.body.style.backgroundColor='#ff0000';
 if (bgColor==1) document.body.style.backgroundColor='#e76432';
 if (bgColor==2) document.body.style.backgroundColor='#fd9c7a';
@@ -246,9 +503,9 @@ if (bgColor==9) document.body.style.backgroundColor='#ffb68e';
 
 
 //sun
-sunPositionX=Math.round(Math.random() * 10);
-sunPositionY=Math.round(Math.random() * 10);
-sunSize=Math.round(Math.random() * 10);
+sunPositionX=Math.round(fxrand() * 10);
+sunPositionY=Math.round(fxrand() * 10);
+sunSize=Math.round(fxrand() * 10);
 
 document.getElementById('sun').style.top=sunPositionX*5+10 +'vh';
 document.getElementById('sun').style.left=sunPositionY*7+10 +'vw';
@@ -256,68 +513,32 @@ document.getElementById('sun').style.width  = 18 + sunSize * 0.7 + 'vh';
 document.getElementById('sun').style.height = 18 + sunSize * 0.7 + 'vh';
 
 
-//bird01
-bird01PositionX=Math.round(Math.random() * 10);
-bird01PositionY=Math.round(Math.random() * 10);
-bird01Size=Math.round(Math.random() * 10);
-bird01Rotation=Math.round(Math.random() * 10);
-//bird02
-bird02PositionX=Math.round(Math.random() * 10);
-bird02PositionY=Math.round(Math.random() * 10);
-bird02Size=Math.round(Math.random() * 10);
-bird02Rotation=Math.round(Math.random() * 10);
-//bird03
-bird03PositionX=Math.round(Math.random() * 10);
-bird03PositionY=Math.round(Math.random() * 10);
-bird03Size=Math.round(Math.random() * 10);
-bird03Rotation=Math.round(Math.random() * 10);
-//bird04
-bird04PositionX=Math.round(Math.random() * 10);
-bird04PositionY=Math.round(Math.random() * 10);
-bird04Size=Math.round(Math.random() * 10);
-bird04Rotation=Math.round(Math.random() * 10);
-//bird05
-bird05PositionX=Math.round(Math.random() * 10);
-bird05PositionY=Math.round(Math.random() * 10);
-bird05Size=Math.round(Math.random() * 10);
-bird05Rotation=Math.round(Math.random() * 10);
-//bird06
-bird06PositionX=Math.round(Math.random() * 10);
-bird06PositionY=Math.round(Math.random() * 10);
-bird06Size=Math.round(Math.random() * 10);
-bird06Rotation=Math.round(Math.random() * 10);
-//bird07
-bird07PositionX=Math.round(Math.random() * 10);
-bird07PositionY=Math.round(Math.random() * 10);
-bird07Size=Math.round(Math.random() * 10);
-bird07Rotation=Math.round(Math.random() * 10);
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
+drawBird();
 
-
-setBird('bird01', bird01PositionX, bird01PositionY, bird01Size, bird01Rotation);
-setBird('bird02', bird02PositionX, bird02PositionY, bird02Size, bird02Rotation);
-setBird('bird03', bird03PositionX, bird03PositionY, bird03Size, bird03Rotation);
-setBird('bird04', bird04PositionX, bird04PositionY, bird04Size, bird04Rotation);
-setBird('bird05', bird05PositionX, bird05PositionY, bird05Size, bird05Rotation);
-setBird('bird06', bird06PositionX, bird06PositionY, bird06Size, bird06Rotation);
-setBird('bird07', bird07PositionX, bird07PositionY, bird07Size, bird07Rotation);
-
-
-
-
-rope01PositionX=Math.round(Math.random() * 10);
-rope01PositionY=Math.round(Math.random() * 10);
-rope01Rotation=Math.round(Math.random() * 10);
+rope01PositionX=Math.round(fxrand() * 10);
+rope01PositionY=Math.round(fxrand() * 10);
+rope01Rotation=Math.round(fxrand() * 10);
 setRope('rope01', 0, rope01PositionY, rope01Rotation);
 
 
-rope02PositionX=Math.round(Math.random() * 10);
-rope02PositionY=Math.round(Math.random() * 10);
-rope02Rotation=Math.round(Math.random() * 10);
+rope02PositionX=Math.round(fxrand() * 10);
+rope02PositionY=Math.round(fxrand() * 10);
+rope02Rotation= Math.round(fxrand() * 10);
 setRope('rope02', 0, rope02PositionY, rope02Rotation);
 
-rope03PositionX=Math.round(Math.random() * 10);
-rope03PositionY=Math.round(Math.random() * 10);
-rope03Rotation=Math.round(Math.random() * 10);
+rope03PositionX=Math.round(fxrand() * 10);
+rope03PositionY=Math.round(fxrand() * 10);
+rope03Rotation= Math.round(fxrand() * 10);
 setRope('rope03', 0, rope03PositionY, rope03Rotation);
 
 
@@ -328,7 +549,17 @@ setRope('rope03', 0, rope03PositionY, rope03Rotation);
 
 
 
+
+
 generate();
+fxpreview();
+
+
+console.log(fxhash)   // the 64 chars hex number fed to your algorithm
+console.log(fxrand()) // deterministic PRNG function, use it instead of Math.random()
+console.log(hashes) ;
+
+
 </script>
 
 
