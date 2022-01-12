@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+<title>FREEDOM by NeuroModern</title>
+
+	
+
+
+
+	 
+<style>
+        html, body {
+            overflow: hidden;
+            width   : 100%;
+            height  : 100%;
+            margin  : 0;
+            padding : 0;
+			
+			background-color: #c91500;
+        }
+
+
+
+
+#sun {
+position: absolute;
+width: 10vw;
+height: 10vw;
+border-radius: 50%;
+background-color: white;	
+top: 10vh;
+left: 10vh;
+opacity: 0.4;
+
+}		
+	
+#bird01
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird01.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#bird02
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird02.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#bird03
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird03.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#bird04
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird04.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#bird05
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird05.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#bird06
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird03.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#bird07
+{
+position: absolute;
+width: 10vw;
+height: 10vw;
+background-image:  url("bird01.png");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+#overlayPaper
+{
+position: absolute;
+width: 100vw;
+height: 100vh;
+background-image:  url("paperbg.png");
+background-repeat: no-repeat;
+background-size: cover;
+top:0;
+left:0;
+}
+	
+	
+#rope01, #rope02,#rope03
+{
+position: absolute;
+width: 140vw;
+height: 5vw;
+background-image:  url("rope.png");
+background-repeat: no-repeat;
+background-size: cover;
+top:40vh;
+left:0;
+}	
+	
+	
+	
+</style>
+</head>
+<body>
+
+
+<div id="sun"></div>
+
+<div id="bird01"></div>
+<div id="bird02"></div>
+<div id="bird03"></div>
+<div id="bird04"></div>
+<div id="bird05"></div>
+<div id="bird06"></div>
+<div id="bird07"></div>
+
+<div id="rope01"></div>	
+<div id="rope02"></div>	
+<div id="rope03"></div>	
+	
+<div id="overlayPaper"></div>	
+	
+	
+	
+<script>
+var bgColor;
+var overlayColor;
+
+var sunPositionX;
+var sunPositionY;
+var sunSize;
+
+var bird01PositionX;
+var bird01PositionY;
+var bird01Size;
+var bird01Rotation;
+
+var bird02PositionX;
+var bird02PositionY;
+var bird02Size;
+var bird02Rotation;
+
+var bird03PositionX;
+var bird03PositionY;
+var bird03Size;
+var bird03Rotation;
+
+var bird04PositionX;
+var bird04PositionY;
+var bird04Size;
+var bird04Rotation;
+
+var bird05PositionX;
+var bird05PositionY;
+var bird05Size;
+var bird05Rotation;
+
+
+
+
+
+
+
+function setBird(name, x, y, size, rotation)
+{
+document.getElementById(name).style.top=y*9-10 +'vh';
+document.getElementById(name).style.left=x*9-10 +'vw';
+document.getElementById(name).style.width  = 20 + size * 0.7 + 'vh';
+document.getElementById(name).style.height = 20 + size * 0.7 + 'vh';
+
+document.getElementById(name).style.webkitTransform = 'rotate('+ rotation*36 +'deg)'; 
+document.getElementById(name).style.mozTransform    = 'rotate('+ rotation*36 +'deg)'; 
+document.getElementById(name).style.msTransform     = 'rotate('+ rotation*36 +'deg)'; 
+document.getElementById(name).style.oTransform      = 'rotate('+ rotation*36 +'deg)'; 
+document.getElementById(name).style.transform       = 'rotate('+ rotation*36 +'deg)';
+}
+
+function setRope(name, x, y, rotation)
+{
+document.getElementById(name).style.top= y* 10+20 +'vh';
+document.getElementById(name).style.left=x* 10-20 +'vw';
+
+document.getElementById(name).style.webkitTransform = 'rotate('+ (rotation*9-45) +'deg)'; 
+document.getElementById(name).style.mozTransform    = 'rotate('+ (rotation*9-45) +'deg)'; 
+document.getElementById(name).style.msTransform     = 'rotate('+ (rotation*9-45) +'deg)'; 
+document.getElementById(name).style.oTransform      = 'rotate('+ (rotation*9-45) +'deg)'; 
+document.getElementById(name).style.transform       = 'rotate('+ (rotation*9-45) +'deg)';
+}
+
+
+function resize()
+{
+
+}
+
+function generate()
+{
+//bgcolor
+bgColor=Math.round(Math.random() * 10);
+if (bgColor==0) document.body.style.backgroundColor='#ff0000';
+if (bgColor==1) document.body.style.backgroundColor='#e76432';
+if (bgColor==2) document.body.style.backgroundColor='#fd9c7a';
+if (bgColor==3) document.body.style.backgroundColor='#c91500';
+if (bgColor==4) document.body.style.backgroundColor='#963817';
+if (bgColor==5) document.body.style.backgroundColor='#a42843';
+if (bgColor==6) document.body.style.backgroundColor='#ff2000';
+if (bgColor==7) document.body.style.backgroundColor='#f84f3d';
+if (bgColor==8) document.body.style.backgroundColor='#e76432';
+if (bgColor==9) document.body.style.backgroundColor='#ffb68e';
+
+//background-color
+
+
+//sun
+sunPositionX=Math.round(Math.random() * 10);
+sunPositionY=Math.round(Math.random() * 10);
+sunSize=Math.round(Math.random() * 10);
+
+document.getElementById('sun').style.top=sunPositionX*5+10 +'vh';
+document.getElementById('sun').style.left=sunPositionY*7+10 +'vw';
+document.getElementById('sun').style.width  = 18 + sunSize * 0.7 + 'vh';
+document.getElementById('sun').style.height = 18 + sunSize * 0.7 + 'vh';
+
+
+//bird01
+bird01PositionX=Math.round(Math.random() * 10);
+bird01PositionY=Math.round(Math.random() * 10);
+bird01Size=Math.round(Math.random() * 10);
+bird01Rotation=Math.round(Math.random() * 10);
+//bird02
+bird02PositionX=Math.round(Math.random() * 10);
+bird02PositionY=Math.round(Math.random() * 10);
+bird02Size=Math.round(Math.random() * 10);
+bird02Rotation=Math.round(Math.random() * 10);
+//bird03
+bird03PositionX=Math.round(Math.random() * 10);
+bird03PositionY=Math.round(Math.random() * 10);
+bird03Size=Math.round(Math.random() * 10);
+bird03Rotation=Math.round(Math.random() * 10);
+//bird04
+bird04PositionX=Math.round(Math.random() * 10);
+bird04PositionY=Math.round(Math.random() * 10);
+bird04Size=Math.round(Math.random() * 10);
+bird04Rotation=Math.round(Math.random() * 10);
+//bird05
+bird05PositionX=Math.round(Math.random() * 10);
+bird05PositionY=Math.round(Math.random() * 10);
+bird05Size=Math.round(Math.random() * 10);
+bird05Rotation=Math.round(Math.random() * 10);
+//bird06
+bird06PositionX=Math.round(Math.random() * 10);
+bird06PositionY=Math.round(Math.random() * 10);
+bird06Size=Math.round(Math.random() * 10);
+bird06Rotation=Math.round(Math.random() * 10);
+//bird07
+bird07PositionX=Math.round(Math.random() * 10);
+bird07PositionY=Math.round(Math.random() * 10);
+bird07Size=Math.round(Math.random() * 10);
+bird07Rotation=Math.round(Math.random() * 10);
+
+
+setBird('bird01', bird01PositionX, bird01PositionY, bird01Size, bird01Rotation);
+setBird('bird02', bird02PositionX, bird02PositionY, bird02Size, bird02Rotation);
+setBird('bird03', bird03PositionX, bird03PositionY, bird03Size, bird03Rotation);
+setBird('bird04', bird04PositionX, bird04PositionY, bird04Size, bird04Rotation);
+setBird('bird05', bird05PositionX, bird05PositionY, bird05Size, bird05Rotation);
+setBird('bird06', bird06PositionX, bird06PositionY, bird06Size, bird06Rotation);
+setBird('bird07', bird07PositionX, bird07PositionY, bird07Size, bird07Rotation);
+
+
+
+
+rope01PositionX=Math.round(Math.random() * 10);
+rope01PositionY=Math.round(Math.random() * 10);
+rope01Rotation=Math.round(Math.random() * 10);
+setRope('rope01', 0, rope01PositionY, rope01Rotation);
+
+
+rope02PositionX=Math.round(Math.random() * 10);
+rope02PositionY=Math.round(Math.random() * 10);
+rope02Rotation=Math.round(Math.random() * 10);
+setRope('rope02', 0, rope02PositionY, rope02Rotation);
+
+rope03PositionX=Math.round(Math.random() * 10);
+rope03PositionY=Math.round(Math.random() * 10);
+rope03Rotation=Math.round(Math.random() * 10);
+setRope('rope03', 0, rope03PositionY, rope03Rotation);
+
+
+
+}
+
+
+
+
+
+generate();
+</script>
+
+
+
+</body>
+</html>
